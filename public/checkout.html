@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | LightsOff Artisan Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    🔒 256-bit Encrypted Checkout • Fresh beans dispatched direct from our Seattle Roastery
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">☕</span>
+        <span>LightsOff</span>
+      </a>
+
+      <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">
+        Secure Roastery Checkout
+      </div>
+
+      <div class="nav-actions">
+        <a href="/cart" class="btn btn-secondary btn-sm">&larr; Return to Bag</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 40px 24px 80px;">
+    <h1 style="font-size: 2.2rem; margin-bottom: 28px;">Checkout & Delivery</h1>
+
+    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: start;">
+      
+      <!-- Checkout Form -->
+      <form id="checkoutForm">
+        
+        <!-- Step 1: Customer Contact -->
+        <div style="background: var(--surface-white); border: 1px solid var(--surface-border); border-radius: 16px; padding: 28px; margin-bottom: 24px;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">1. Contact Information</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group" style="grid-column: 1/-1;">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" id="custName" placeholder="Sarah Jenkins" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email (for order dispatch updates)</label>
+              <input type="email" class="form-input" id="custEmail" placeholder="sarah@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" class="form-input" id="custPhone" placeholder="+1 (555) 234-5678" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Shipping Address -->
+        <div style="background: var(--surface-white); border: 1px solid var(--surface-border); border-radius: 16px; padding: 28px; margin-bottom: 24px;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">2. Shipping Address</h3>
+          <div class="form-group">
+            <label class="form-label">Street Address</label>
+            <input type="text" class="form-input" id="custStreet" placeholder="742 Evergreen Terrace" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <input type="text" class="form-input" id="custCity" placeholder="Portland" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">State</label>
+              <input type="text" class="form-input" id="custState" placeholder="OR" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ZIP Code</label>
+              <input type="text" class="form-input" id="custZip" placeholder="97201" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Roaster Delivery Notes (Optional)</label>
+            <input type="text" class="form-input" id="orderNotes" placeholder="e.g. Leave package by the side door">
+          </div>
+        </div>
+
+        <!-- Step 3: Payment Method -->
+        <div style="background: var(--surface-white); border: 1px solid var(--surface-border); border-radius: 16px; padding: 28px; margin-bottom: 24px;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">3. Payment Method</h3>
+          
+          <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600;">
+              <input type="radio" name="paymentMethod" value="Card" checked style="accent-color: var(--accent-caramel);">
+              <span>Credit / Debit Card</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600;">
+              <input type="radio" name="paymentMethod" value="UPI" style="accent-color: var(--accent-caramel);">
+              <span>UPI / Instant Pay</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600;">
+              <input type="radio" name="paymentMethod" value="Cash on Delivery" style="accent-color: var(--accent-caramel);">
+              <span>Cash on Delivery</span>
+            </label>
+          </div>
+
+          <!-- Card Simulation Fields -->
+          <div id="cardDetailsBox" style="background: var(--accent-cream); padding: 18px; border-radius: 12px; border: 1px solid var(--surface-border);">
+            <div class="form-group">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-input" placeholder="4242 •••• •••• 4242" value="4242 4242 4242 4242">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Expiry Date</label>
+                <input type="text" class="form-input" placeholder="MM/YY" value="12/28">
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-input" placeholder="123" value="789">
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI Simulation Field -->
+          <div id="upiDetailsBox" style="display: none; background: var(--accent-cream); padding: 18px; border-radius: 12px; border: 1px solid var(--surface-border);">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">UPI ID / VPA</label>
+              <input type="text" class="form-input" placeholder="username@upi" value="coffee.lover@okhdfcbank">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" id="btnPlaceOrder" class="btn btn-primary btn-block" style="padding: 16px; font-size: 1.1rem;">
+          Place Roast Order ☕
+        </button>
+      </form>
+
+      <!-- Right Summary Column -->
+      <div style="background: var(--surface-white); border: 1px solid var(--surface-border); border-radius: 16px; padding: 28px; box-shadow: var(--shadow-sm); position: sticky; top: 96px;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 18px;">Order Summary</h3>
+
+        <!-- Items list -->
+        <div id="checkoutItemsList" style="max-height: 280px; overflow-y: auto; margin-bottom: 20px; border-bottom: 1px solid var(--surface-border); padding-bottom: 16px;">
+          <!-- Items injected by checkout.js -->
+        </div>
+
+        <!-- Promo Form -->
+        <form id="promoCodeForm" style="display: flex; gap: 8px; margin-bottom: 20px;">
+          <input type="text" id="promoInput" class="form-input" placeholder="Promo code (e.g. COFFEE10)" style="text-transform: uppercase;">
+          <button type="submit" class="btn btn-secondary btn-sm" style="white-space: nowrap;">Apply</button>
+        </form>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.92rem;">
+          <span>Subtotal</span>
+          <span id="summarySubtotal">$0.00</span>
+        </div>
+        <div id="discountRow" style="display: none; justify-content: space-between; margin-bottom: 8px; font-size: 0.92rem; color: var(--color-success); font-weight: 600;">
+          <span>Promo Discount</span>
+          <span id="summaryDiscount">-$0.00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.92rem;">
+          <span>Standard Shipping</span>
+          <span id="summaryShipping">$0.00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.92rem;">
+          <span>Estimated Tax (8%)</span>
+          <span id="summaryTax">$0.00</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.35rem; border-top: 1px solid var(--surface-border); padding-top: 14px; margin-top: 14px; color: var(--primary-espresso);">
+          <span>Total</span>
+          <span id="summaryTotal">$0.00</span>
+        </div>
+
+        <div style="background: var(--accent-light-sand); padding: 14px; border-radius: 8px; margin-top: 20px; font-size: 0.8rem; color: var(--text-body);">
+          🌿 <strong>Roasting Commitment:</strong> Beans are packaged in nitrogen-flushed, compostable bags with one-way valves.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/checkout.js"></script>
+</body>
+</html>

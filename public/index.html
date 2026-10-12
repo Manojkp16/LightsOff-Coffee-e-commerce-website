@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LightsOff | Artisan Small-Batch Coffee Roasters</title>
+  <meta name="description" content="Ethically sourced, freshly roasted specialty single-origin coffees and espresso blends. Roasted on demand and shipped to your doorstep.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    ☕ Free shipping on orders over $40 • Use code <span>COFFEE10</span> for 10% off your first bag!
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">☕</span>
+        <span>LightsOff</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/shop">Shop Roasts</a></li>
+          <li><a href="/orders">Track Order</a></li>
+          <li><a href="#quiz">Coffee Quiz</a></li>
+          <li><a href="#about">About Our Craft</a></li>
+          <li><a href="/admin" style="color: var(--accent-caramel);">Admin</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="nav-user-container">
+          <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">Sign In</button>
+        </div>
+
+        <button class="nav-action-btn" onclick="openCartDrawer()" title="View Bag">
+          <span>🛒</span>
+          <span class="cart-badge" style="display: none;">0</span>
+        </button>
+
+        <button class="nav-action-btn menu-toggle" aria-label="Toggle Navigation">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-tagline">
+          <span>★</span> Small-Batch Specialty Coffee
+        </div>
+        <h1 class="hero-title">
+          Taste the art of <span>perfect roasting</span> in every morning cup.
+        </h1>
+        <p class="hero-desc">
+          We source high-altitude, single-estate Arabica beans directly from multi-generational farmers. Roasted on-demand in micro-batches and shipped within 48 hours for peaked aromatics and unmatched freshness.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="/shop" class="btn btn-primary">Shop All Roasts</a>
+          <a href="#quiz" class="btn btn-secondary">Find Your Match ✦</a>
+        </div>
+
+        <div class="hero-features">
+          <div class="feature-item">
+            <span class="feature-icon">🌱</span>
+            <div>
+              <h4>Ethically Sourced</h4>
+              <p>Direct farmer trade</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔥</span>
+            <div>
+              <h4>Roasted Fresh</h4>
+              <p>Within 48h of dispatch</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📦</span>
+            <div>
+              <h4>Free Shipping</h4>
+              <p>On orders $40+</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=80" alt="Fresh artisan coffee beans and pour over brewing" class="hero-img">
+        <div class="hero-floating-card">
+          <div class="floating-icon">★</div>
+          <div>
+            <div class="floating-title">100% Specialty Arabica</div>
+            <div class="floating-sub">SCA Cupping Score 86+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Collections Section -->
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Curated Roaster Selection</span>
+        <h2 class="section-title">Fresh Off The Roaster</h2>
+        <p class="section-desc">Hand-picked single origins and signature espresso blends, roasted to highlight delicate terroir and sweetness.</p>
+      </div>
+
+      <div class="products-grid" id="featuredProductsGrid">
+        <div style="grid-column: 1/-1; text-align: center; padding: 40px 0;">
+          <p>Loading fresh roasts from roastery...</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 50px;">
+        <a href="/shop" class="btn btn-dark">View Entire Collection (9 Roasts) &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Coffee Quiz Section -->
+  <section class="container" id="quiz">
+    <div class="quiz-section">
+      <div class="quiz-container">
+        <span style="text-transform:uppercase; font-size:0.85rem; font-weight:800; color:var(--accent-amber); letter-spacing:1px;">Interactive Taste Profiler</span>
+        <h2>Find Your Perfect Morning Cup</h2>
+        <p>Answer 3 quick sensory questions and let our master roaster match your tastebuds.</p>
+
+        <!-- Step 1: Roast Preference -->
+        <div class="quiz-step active" id="quizStep1">
+          <h4 style="font-size:1.2rem; font-family:var(--font-main);">Question 1 of 3: How do you like your coffee roasted?</h4>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('roast', 'Light', this)">
+              <span class="quiz-option-icon">🍋</span>
+              <div class="quiz-option-title">Light & Vibrant</div>
+              <div class="quiz-option-desc">Floral, citrus, tea-like clarity</div>
+            </button>
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('roast', 'Medium', this)">
+              <span class="quiz-option-icon">🍫</span>
+              <div class="quiz-option-title">Medium & Balanced</div>
+              <div class="quiz-option-desc">Milk chocolate, nuts, smooth sweetness</div>
+            </button>
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('roast', 'Dark', this)">
+              <span class="quiz-option-icon">🪵</span>
+              <div class="quiz-option-title">Dark & Bold</div>
+              <div class="quiz-option-desc">Smoky molasses, cocoa, heavy body</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Brew Method -->
+        <div class="quiz-step" id="quizStep2">
+          <h4 style="font-size:1.2rem; font-family:var(--font-main);">Question 2 of 3: What is your primary brewing method?</h4>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('brew', 'PourOver', this)">
+              <span class="quiz-option-icon">⌛</span>
+              <div class="quiz-option-title">Pour Over / Chemex</div>
+              <div class="quiz-option-desc">Clean, intricate tasting notes</div>
+            </button>
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('brew', 'Espresso', this)">
+              <span class="quiz-option-icon">☕</span>
+              <div class="quiz-option-title">Espresso Machine / Moka</div>
+              <div class="quiz-option-desc">Rich crema, pairs with milk</div>
+            </button>
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('brew', 'ColdBrew', this)">
+              <span class="quiz-option-icon">🧊</span>
+              <div class="quiz-option-title">French Press / Cold Brew</div>
+              <div class="quiz-option-desc">Deep extraction, low bitterness</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Flavor Notes -->
+        <div class="quiz-step" id="quizStep3">
+          <h4 style="font-size:1.2rem; font-family:var(--font-main);">Question 3 of 3: What flavor notes make you smile?</h4>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('flavor', 'fruity', this)">
+              <span class="quiz-option-icon">🍒</span>
+              <div class="quiz-option-title">Stonefruit & Berries</div>
+              <div class="quiz-option-desc">Juicy red apple, jasmine, honey</div>
+            </button>
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('flavor', 'caramel', this)">
+              <span class="quiz-option-icon">🍯</span>
+              <div class="quiz-option-title">Caramel & Hazelnut</div>
+              <div class="quiz-option-desc">Creamy toffee, roasted almonds</div>
+            </button>
+            <button class="quiz-option-btn" onclick="CoffeeQuiz.selectOption('flavor', 'chocolate', this)">
+              <span class="quiz-option-icon">🍫</span>
+              <div class="quiz-option-title">Dark Baker's Cocoa</div>
+              <div class="quiz-option-desc">Rich fudge, warm spices, cedar</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Box -->
+        <div id="quizResult" style="display:none; margin-top:24px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The BeanCraft Roasting Standards (About Section) -->
+  <section class="section section-bg" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Our Roasting Philosophy</span>
+        <h2 class="section-title">From High-Elevation Soil to Cup</h2>
+        <p class="section-desc">We obsess over the science of caramelization and airflow so you don't have to.</p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <span class="process-number">01</span>
+          <div class="process-icon">🌍</div>
+          <h3>Single-Estate Sourcing</h3>
+          <p>We work with small cooperatives in Ethiopia, Colombia, Guatemala, and Sumatra that farm with organic and regenerative principles above 1,500m elevation.</p>
+        </div>
+
+        <div class="process-card">
+          <span class="process-number">02</span>
+          <div class="process-icon">🌡️</div>
+          <h3>Micro-Batch Roasting</h3>
+          <p>Each harvest is test-profiled using precise temperature curve logging. We never over-roast, ensuring natural terroir and delicate floral acids remain intact.</p>
+        </div>
+
+        <div class="process-card">
+          <span class="process-number">03</span>
+          <div class="process-icon">📦</div>
+          <h3>Degassed & Sealed</h3>
+          <p>Packaged in biodegradable pouches equipped with one-way aroma degassing valves to preserve peak freshness for up to 6 months.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews / Social Proof -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Loved by 10,000+ Coffee Lovers</span>
+        <h2 class="section-title">What Coffee Drinkers Are Saying</h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The Ethiopian Yirgacheffe is genuinely the cleanest cup of coffee I have ever brewed at home. Notes of jasmine and bergamot came through vividly in my V60."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ER</div>
+            <div>
+              <div class="author-name">Elena Rostova</div>
+              <div class="author-note">Home Barista • San Francisco</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Velvet Crema transformed my espresso routine. It gives a dense golden crema with zero sourness, and cuts through oat milk like a dream."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">CB</div>
+            <div>
+              <div class="author-name">Claire Bennett</div>
+              <div class="author-note">Espresso Enthusiast • Austin</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Delivery arrived within 2 days of roast date stamped on the bag! You simply cannot get this level of aromatics from supermarket beans."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">DK</div>
+            <div>
+              <div class="author-name">David Kim</div>
+              <div class="author-note">Verified Subscriber • Seattle</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section class="container">
+    <div class="newsletter-banner">
+      <h2>Join the BeanCraft Roasters Guild</h2>
+      <p>Subscribe for free brewing guides, early access to rare micro-lot drops, and get <strong>10% off your first purchase</strong> with coupon <strong>COFFEE10</strong>.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" class="newsletter-input" placeholder="Enter your email address..." required>
+        <button type="submit" class="btn btn-primary">Join Guild</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="color: #fff; margin-bottom: 12px;">
+            <span class="logo-icon">☕</span>
+            <span>BeanCraft</span>
+          </div>
+          <p>Artisan small-batch specialty coffee roasters dedicated to transparency, sustainable agriculture, and the ritual of morning joy.</p>
+          <div style="font-size: 0.85rem; color: rgba(251, 247, 238, 0.6);">
+            Seattle Roastery: 101 Artisan Blvd, Seattle, WA<br>
+            Direct: hello@beancraftcoffee.com
+          </div>
+          <div class="footer-social-row">
+            <a href="https://www.linkedin.com/in/manoj-k-p-9bb2b3288" target="_blank" rel="noopener noreferrer" class="social-btn linkedin" title="Connect with Manoj K P on LinkedIn">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2"/></svg>
+              <span>Manoj K P on LinkedIn</span>
+            </a>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="social-btn github" title="View Source on GitHub">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="/shop">All Roasts</a></li>
+            <li><a href="/shop?category=Single%20Origin">Single Origins</a></li>
+            <li><a href="/shop?category=Espresso%20Blends">Espresso Blends</a></li>
+            <li><a href="/shop?category=Cold%20Brew">Cold Brew Reserve</a></li>
+            <li><a href="/shop?category=Artisan%20Gear">Brewing Gear</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="/orders">Track Your Order</a></li>
+            <li><a href="/cart">Shopping Bag</a></li>
+            <li><a href="#quiz">Taste Match Quiz</a></li>
+            <li><a href="/admin">Admin Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Demo Credentials</h4>
+          <p style="font-size: 0.82rem; color: rgba(251,247,238,0.7); margin-bottom: 8px;">
+            <strong>Admin Login:</strong><br>
+            admin@beancraft.com<br>
+            adminpassword123
+          </p>
+          <p style="font-size: 0.82rem; color: rgba(251,247,238,0.7);">
+            <strong>Customer:</strong><br>
+            sarah@example.com<br>
+            coffeeuser123
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 BeanCraft Artisan Coffee. Built with Node.js, Express & MongoDB by Manoj K P.</div>
+        <div>
+          <a href="https://www.linkedin.com/in/manoj-k-p-9bb2b3288" target="_blank" rel="noopener noreferrer" style="color: var(--accent-amber); font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2"/></svg>
+            Connect with Manoj K P &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div class="cart-overlay cart-close-trigger"></div>
+  <aside class="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3>Your Coffee Bag</h3>
+      <button class="cart-close-btn cart-close-trigger">&times;</button>
+    </div>
+
+    <div class="cart-free-shipping-bar">
+      <div class="shipping-text">Add $40 for Free Standard Shipping</div>
+      <div class="shipping-progress">
+        <div class="shipping-progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="cart-items-list">
+      <!-- Injected by CartManager -->
+    </div>
+
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line">
+        <span>Estimated Subtotal</span>
+        <span class="cart-subtotal-val">$0.00</span>
+      </div>
+      <div class="cart-summary-line total">
+        <span>Total</span>
+        <span class="cart-subtotal-val">$0.00</span>
+      </div>
+      <a href="/checkout" class="btn btn-primary btn-block" style="margin-bottom: 10px;">Proceed to Checkout</a>
+      <a href="/cart" class="btn btn-secondary btn-block btn-sm">View Full Bag</a>
+    </div>
+  </aside>
+
+  <!-- Auth Modal (Login / Register) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabBtnLogin" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab-btn" id="tabBtnRegister" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="loginEmail" placeholder="yourname@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+
+        <div class="demo-credentials-box">
+          <p>⚡ Quick Test 1-Click Autofill:</p>
+          <div class="demo-btn-group">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="autofillDemo('customer')">Customer Account</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="autofillDemo('admin')">Admin Account</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="regName" placeholder="Alex Morgan" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="regEmail" placeholder="alex@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password (min 6 characters)</label>
+          <input type="password" class="form-input" id="regPassword" placeholder="••••••••" minlength="6" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number (Optional)</label>
+          <input type="tel" class="form-input" id="regPhone" placeholder="+1 (555) 000-0000">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

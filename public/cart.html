@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Coffee Bag | LightsOff Roasters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/shop.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    ☕ Free shipping on orders over $40 • Use code <span>COFFEE10</span> for 10% off your first bag!
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">☕</span>
+        <span>LightsOff</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop">Shop Roasts</a></li>
+          <li><a href="/orders">Track Order</a></li>
+          <li><a href="/#quiz">Coffee Quiz</a></li>
+          <li><a href="/#about">About Our Craft</a></li>
+          <li><a href="/admin" style="color: var(--accent-caramel);">Admin</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="nav-user-container">
+          <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">Sign In</button>
+        </div>
+
+        <button class="nav-action-btn" onclick="openCartDrawer()" title="View Bag">
+          <span>🛒</span>
+          <span class="cart-badge" style="display: none;">0</span>
+        </button>
+
+        <button class="nav-action-btn menu-toggle" aria-label="Toggle Navigation">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 48px 24px 80px;">
+    <h1 style="font-size: 2.4rem; margin-bottom: 24px;">Your Shopping Bag</h1>
+
+    <div id="fullCartView" style="display: grid; grid-template-columns: 1fr 360px; gap: 40px; align-items: start;">
+      
+      <!-- Items Table -->
+      <div style="background: var(--surface-white); border: 1px solid var(--surface-border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm);">
+        <div id="cartPageList">
+          <!-- Populated by JS -->
+        </div>
+
+        <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--surface-border); padding-top: 18px;">
+          <a href="/shop" class="btn btn-secondary btn-sm">&larr; Continue Exploring Roasts</a>
+          <button class="btn btn-secondary btn-sm" onclick="CartManager.clearCart()" style="color: #dc2626; border-color: #fca5a5;">Clear Entire Bag</button>
+        </div>
+      </div>
+
+      <!-- Order Summary Card -->
+      <div style="background: var(--surface-white); border: 1px solid var(--surface-border); border-radius: 16px; padding: 28px; box-shadow: var(--shadow-sm); position: sticky; top: 96px;">
+        <h3 style="font-size: 1.3rem; margin-bottom: 16px; border-bottom: 1px solid var(--surface-border); padding-bottom: 12px;">Bag Summary</h3>
+
+        <!-- Free shipping bar -->
+        <div style="background: var(--accent-light-sand); padding: 12px 14px; border-radius: 8px; margin-bottom: 20px;">
+          <div class="shipping-text" id="cartPageShippingText" style="font-size: 0.82rem; font-weight: 600;">Add $40 for Free Standard Shipping</div>
+          <div class="shipping-progress" style="margin-top: 6px;">
+            <div class="shipping-progress-fill" id="cartPageShippingBar"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem;">
+          <span>Subtotal</span>
+          <span id="cartPageSubtotal">$0.00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem;">
+          <span>Estimated Shipping</span>
+          <span id="cartPageShipping">$5.00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem;">
+          <span>Estimated Tax (8%)</span>
+          <span id="cartPageTax">$0.00</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.3rem; border-top: 1px solid var(--surface-border); padding-top: 14px; margin-top: 14px; color: var(--primary-espresso);">
+          <span>Estimated Total</span>
+          <span id="cartPageTotal">$0.00</span>
+        </div>
+
+        <a href="/checkout" class="btn btn-primary btn-block" style="margin-top: 24px;">Proceed to Checkout &rarr;</a>
+        
+        <div style="text-align: center; margin-top: 14px; font-size: 0.78rem; color: var(--text-muted);">
+          🔒 Guaranteed safe & encrypted checkout
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Empty state -->
+    <div id="cartEmptyState" style="display: none; text-align: center; padding: 80px 20px; background: var(--surface-white); border-radius: 16px; border: 1px solid var(--surface-border);">
+      <div style="font-size: 3.5rem; margin-bottom: 16px;">☕</div>
+      <h2>Your coffee bag is empty</h2>
+      <p style="color: var(--text-muted); margin: 12px 0 28px; max-width: 420px; margin-left: auto; margin-right: auto;">
+        You haven't selected any roasts yet. Our fresh beans are waiting to awaken your mornings!
+      </p>
+      <a href="/shop" class="btn btn-primary">Browse Artisan Coffees</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding-top: 0;">
+        <div>© 2026 BeanCraft Artisan Coffee. Built with Node.js, Express & MongoDB by Manoj K P.</div>
+        <div>
+          <a href="https://www.linkedin.com/in/manoj-k-p-9bb2b3288" target="_blank" rel="noopener noreferrer" style="color: var(--accent-amber); font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2"/></svg>
+            Connect with Manoj K P &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div class="cart-overlay cart-close-trigger"></div>
+  <aside class="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3>Your Coffee Bag</h3>
+      <button class="cart-close-btn cart-close-trigger">&times;</button>
+    </div>
+    <div class="cart-free-shipping-bar">
+      <div class="shipping-text">Add $40 for Free Standard Shipping</div>
+      <div class="shipping-progress">
+        <div class="shipping-progress-fill"></div>
+      </div>
+    </div>
+    <div class="cart-items-list"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line">
+        <span>Estimated Subtotal</span>
+        <span class="cart-subtotal-val">$0.00</span>
+      </div>
+      <div class="cart-summary-line total">
+        <span>Total</span>
+        <span class="cart-subtotal-val">$0.00</span>
+      </div>
+      <a href="/checkout" class="btn btn-primary btn-block" style="margin-bottom: 10px;">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <!-- Auth Modal -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabBtnLogin" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab-btn" id="tabBtnRegister" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="loginEmail" placeholder="yourname@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="demo-credentials-box">
+          <p>⚡ Quick Test 1-Click Autofill:</p>
+          <div class="demo-btn-group">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="autofillDemo('customer')">Customer Account</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="autofillDemo('admin')">Admin Account</button>
+          </div>
+        </div>
+      </form>
+
+      <form id="registerForm" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="regName" placeholder="Alex Morgan" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="regEmail" placeholder="alex@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="regPassword" placeholder="••••••••" minlength="6" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    function renderFullCartPage() {
+      const items = CartManager.getItems();
+      const listEl = document.querySelector('#cartPageList');
+      const viewEl = document.querySelector('#fullCartView');
+      const emptyEl = document.querySelector('#cartEmptyState');
+
+      if (!listEl) return;
+
+      if (items.length === 0) {
+        viewEl.style.display = 'none';
+        emptyEl.style.display = 'block';
+        return;
+      }
+
+      viewEl.style.display = 'grid';
+      emptyEl.style.display = 'none';
+
+      const subtotal = CartManager.getSubtotal();
+      const shipping = subtotal >= 40 ? 0 : 5.00;
+      const tax = Math.round(subtotal * 0.08 * 100) / 100;
+      const total = Math.round((subtotal + shipping + tax) * 100) / 100;
+
+      document.querySelector('#cartPageSubtotal').textContent = formatPrice(subtotal);
+      document.querySelector('#cartPageShipping').textContent = shipping === 0 ? 'FREE' : formatPrice(shipping);
+      document.querySelector('#cartPageTax').textContent = formatPrice(tax);
+      document.querySelector('#cartPageTotal').textContent = formatPrice(total);
+
+      // Shipping progress
+      const percent = Math.min(100, Math.round((subtotal / 40) * 100));
+      document.querySelector('#cartPageShippingBar').style.width = `${percent}%`;
+      if (subtotal >= 40) {
+        document.querySelector('#cartPageShippingText').innerHTML = `🎉 You have unlocked <strong>FREE Standard Shipping</strong>!`;
+      } else {
+        document.querySelector('#cartPageShippingText').innerHTML = `Add <strong>$${(40 - subtotal).toFixed(2)}</strong> more for Free Shipping`;
+      }
+
+      listEl.innerHTML = items.map((item, idx) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-bottom:1px solid var(--surface-border); gap:16px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <img src="${item.image}" alt="${item.name}" style="width:72px; height:72px; border-radius:10px; object-fit:cover;">
+            <div>
+              <h4 style="font-size:1.1rem; color:var(--primary-espresso); margin-bottom:4px;">${item.name}</h4>
+              <div style="font-size:0.82rem; color:var(--text-muted);">${item.size} • ${item.grind}</div>
+              <div style="font-size:0.9rem; font-weight:700; color:var(--accent-caramel); margin-top:4px;">${formatPrice(item.price)} each</div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:20px;">
+            <div class="quantity-control">
+              <button class="qty-btn" onclick="CartManager.updateQuantity(${idx}, ${item.quantity - 1})">-</button>
+              <input type="text" class="qty-input" value="${item.quantity}" readonly>
+              <button class="qty-btn" onclick="CartManager.updateQuantity(${idx}, ${item.quantity + 1})">+</button>
+            </div>
+            <div style="font-size:1.15rem; font-weight:800; min-width:80px; text-align:right;">
+              ${formatPrice(item.price * item.quantity)}
+            </div>
+            <button class="cart-item-remove" onclick="CartManager.removeItem(${idx})" title="Remove">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.addEventListener('cartUpdated', renderFullCartPage);
+    document.addEventListener('DOMContentLoaded', renderFullCartPage);
+  </script>
+</body>
+</html>

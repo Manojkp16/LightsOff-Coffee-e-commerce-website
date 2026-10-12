@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roaster Admin Portal | BeanCraft Specialty Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="announcement-bar" style="background:#2c1a11;">
+    ⚙️ LightsOff Roaster Administration & Inventory Control
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">☕</span>
+        <span>LightsOff</span>
+        <span style="font-size: 0.75rem; background: var(--accent-caramel); color: #fff; padding: 2px 8px; border-radius: 6px; margin-left: 6px;">ADMIN</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Storefront</a></li>
+          <li><a href="/shop">Shop Catalog</a></li>
+          <li><a href="/orders">Track Orders</a></li>
+          <li><a href="/admin" class="active">Dashboard</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="nav-user-container">
+          <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">Sign In</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container admin-dashboard-container">
+    
+    <!-- Auth Notice Banner if not admin -->
+    <div id="adminAuthBanner" style="display: none; background: #fffbeb; border: 1.5px solid #fcd34d; border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 32px;">
+      <h3 style="color: #92400e; font-size: 1.4rem; margin-bottom: 8px;">🔒 Administrator Authentication Required</h3>
+      <p style="color: #78350f; max-width: 520px; margin: 0 auto 20px; font-size: 0.95rem;">
+        You must be signed in with an administrative account to access sales data, update roast statuses, or modify catalog inventory.
+      </p>
+      <button class="btn btn-primary" onclick="AdminController.loginDemoAdmin()">
+        ⚡ Sign In as Demo Admin (admin@beancraft.com)
+      </button>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div id="adminMainContent">
+      <div class="admin-header">
+        <div>
+          <h1>Roastery Operations</h1>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Monitor sales, manage roasted orders, and update bean inventory.</p>
+        </div>
+        <div>
+          <button class="btn btn-primary btn-sm" id="btnOpenAddProduct">＋ Add New Coffee</button>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="admin-stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon revenue">💵</div>
+          <div>
+            <div class="stat-value" id="statRevenue">$0.00</div>
+            <div class="stat-title">Total Revenue</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon orders">📦</div>
+          <div>
+            <div class="stat-value" id="statOrders">0</div>
+            <div class="stat-title">Total Orders</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon products">☕</div>
+          <div>
+            <div class="stat-value" id="statProducts">0</div>
+            <div class="stat-title">Roasts in Catalog</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon users">👥</div>
+          <div>
+            <div class="stat-value" id="statUsers">0</div>
+            <div class="stat-title">Registered Accounts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-nav-tabs">
+        <button class="admin-tab-btn active" data-tab="orders">Orders Fulfillment</button>
+        <button class="admin-tab-btn" data-tab="products">Coffee Catalog</button>
+        <button class="admin-tab-btn" data-tab="settings">System & Database</button>
+      </div>
+
+      <!-- Panel 1: Orders Fulfillment -->
+      <div class="admin-panel active" id="adminPanel-orders">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 style="font-size: 1.2rem;">Customer Orders</h3>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Status Filter:</span>
+              <select id="adminOrderStatusFilter" class="sort-select" style="padding: 6px 12px; font-size: 0.85rem;">
+                <option value="All">All Statuses</option>
+                <option value="Placed">Placed</option>
+                <option value="Roasting">Roasting</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Date</th>
+                  <th>Customer</th>
+                  <th>Items</th>
+                  <th>Amount</th>
+                  <th>Fulfillment Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminOrdersTableBody">
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Products Catalog Management -->
+      <div class="admin-panel" id="adminPanel-products">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 style="font-size: 1.2rem;">Inventory & Roasts</h3>
+            <button class="btn btn-secondary btn-sm" onclick="AdminController.loadProducts()">Refresh Catalog</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Coffee Name & Origin</th>
+                  <th>Category</th>
+                  <th>Roast</th>
+                  <th>Price (250g)</th>
+                  <th>Stock</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsTableBody">
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Settings & Database Tools -->
+      <div class="admin-panel" id="adminPanel-settings">
+        <div class="admin-card" style="padding: 32px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Database Management & Seeding</h3>
+          <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 600px; font-size: 0.95rem;">
+            Quickly refresh the MongoDB dataset with authentic specialty coffee origins (Ethiopia, Colombia, Sumatra, Guatemala, Costa Rica), user credentials, and sample customer reviews.
+          </p>
+
+          <button id="btnReseedDb" class="btn btn-secondary" style="color: #b91c1c; border-color: #fca5a5;">
+            🔄 Reset & Reseed Database to Default Dataset
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Product Modal -->
+  <div class="modal-overlay" id="addProductModal">
+    <div class="modal-box" style="max-width: 600px;">
+      <button class="modal-close-btn" id="btnCloseProductModal">&times;</button>
+      <h3 style="font-size: 1.4rem; margin-bottom: 16px;">Add New Specialty Coffee</h3>
+
+      <form id="addProductForm">
+        <div class="form-group">
+          <label class="form-label">Coffee Name</label>
+          <input type="text" class="form-input" id="newProdName" placeholder="e.g. Kenya Nyeri Peaberry" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Flavor Subtitle</label>
+          <input type="text" class="form-input" id="newProdSubtitle" placeholder="e.g. Blackcurrant, Grapefruit & Raw Sugar" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Detailed Story / Description</label>
+          <textarea class="form-input" id="newProdDesc" rows="3" placeholder="Describe elevation, farming cooperative, and cup profile..." required></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-input" id="newProdCategory" required>
+              <option value="Single Origin">Single Origin</option>
+              <option value="Espresso Blends">Espresso Blends</option>
+              <option value="Cold Brew">Cold Brew</option>
+              <option value="Decaf">Decaf</option>
+              <option value="Artisan Gear">Artisan Gear</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Roast Level</label>
+            <select class="form-input" id="newProdRoast" required>
+              <option value="Light">Light</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Medium-Dark">Medium-Dark</option>
+              <option value="Dark">Dark</option>
+              <option value="N/A">N/A (Gear)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label">Roast Meter (1-5)</label>
+            <input type="number" class="form-input" id="newProdRoastMeter" min="1" max="5" value="3" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Base Price ($)</label>
+            <input type="number" class="form-input" id="newProdPrice" step="0.5" value="19.50" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Inventory Stock</label>
+            <input type="number" class="form-input" id="newProdStock" value="50" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Origin / Country & Region</label>
+          <input type="text" class="form-input" id="newProdOrigin" placeholder="e.g. Nyeri Highlands, Kenya" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tasting Notes (comma separated)</label>
+          <input type="text" class="form-input" id="newProdFlavors" placeholder="Blackcurrant, Tangerine, Honey, Cane Sugar" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Primary Image URL (Unsplash or direct image link)</label>
+          <input type="url" class="form-input" id="newProdImage" value="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?auto=format&fit=crop&w=800&q=80">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Create & Publish Roast</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

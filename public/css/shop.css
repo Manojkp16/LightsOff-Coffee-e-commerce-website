@@ -1,0 +1,316 @@
+/* ==========================================================================
+   BeanCraft - Shop & Product Catalog Styling
+   ========================================================================== */
+
+.shop-page-header {
+  background: linear-gradient(180deg, rgba(230, 157, 69, 0.12) 0%, rgba(251, 247, 238, 0) 100%);
+  padding: 48px 0 32px;
+  text-align: center;
+}
+
+.shop-page-title {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+}
+
+.shop-page-desc {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-muted);
+}
+
+.shop-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  padding: 40px 0 80px;
+}
+
+/* Sidebar Filters */
+.filters-sidebar {
+  background: var(--surface-white);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  height: fit-content;
+  position: sticky;
+  top: 96px;
+}
+
+.filter-group {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.filter-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-espresso);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-list {
+  list-style: none;
+}
+
+.filter-item {
+  margin-bottom: 10px;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  color: var(--text-body);
+  transition: color var(--transition-fast);
+}
+
+.filter-label:hover {
+  color: var(--accent-caramel);
+}
+
+.filter-radio, .filter-checkbox {
+  accent-color: var(--accent-caramel);
+  width: 16px;
+  height: 16px;
+}
+
+.price-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.price-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.btn-filter-apply {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.btn-reset-filters {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  text-decoration: underline;
+  margin-top: 12px;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+/* Shop Controls (Search, Sort, View, Active Count) */
+.shop-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.search-box-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+}
+
+.shop-search-input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-white);
+  outline: none;
+  font-size: 0.92rem;
+}
+
+.shop-search-input:focus {
+  border-color: var(--accent-caramel);
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.shop-sort-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-select {
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-white);
+  outline: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.results-count-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+/* Product Detail Page & Quick View Specific */
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 48px 0;
+}
+
+.product-detail-gallery {
+  position: relative;
+}
+
+.detail-main-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border);
+}
+
+.product-detail-info h1 {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.detail-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+
+.detail-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-espresso);
+}
+
+.detail-original-price {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.tasting-notes-pill-box {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.tasting-pill {
+  padding: 6px 14px;
+  background: var(--accent-light-sand);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-espresso);
+  border: 1px solid var(--surface-border);
+}
+
+.detail-attributes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+
+.detail-attributes-table td {
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.detail-attributes-table td:first-child {
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 35%;
+}
+
+.option-selector-group {
+  margin: 20px 0;
+}
+
+.option-selector-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.size-pill-group, .grind-pill-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.option-btn {
+  padding: 10px 16px;
+  border: 1.5px solid var(--surface-border);
+  background: var(--surface-white);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.option-btn:hover {
+  border-color: var(--accent-caramel);
+}
+
+.option-btn.selected {
+  border-color: var(--accent-caramel);
+  background: var(--accent-caramel);
+  color: #fff;
+}
+
+.detail-actions-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 32px 0 20px;
+}
+
+@media (max-width: 900px) {
+  .shop-layout {
+    grid-template-columns: 1fr;
+  }
+  .filters-sidebar {
+    position: static;
+  }
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
