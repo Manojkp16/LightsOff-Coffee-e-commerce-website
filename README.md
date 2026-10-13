@@ -1,4 +1,4 @@
-# ☕ BeanCraft Artisan Coffee E-Commerce Web Application
+# ☕ LightsOff Artisan Coffee E-Commerce Web Application
 
 **Author**: [Manoj K P](https://www.linkedin.com/in/manoj-k-p-9bb2b3288)  
 **LinkedIn**: [`www.linkedin.com/in/manoj-k-p-9bb2b3288`](https://www.linkedin.com/in/manoj-k-p-9bb2b3288)  
